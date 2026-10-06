@@ -1,0 +1,19 @@
+{
+  "users": [
+    {
+      "id": "user-vignesh",
+      "name": "Vignesh",
+      "email": "vs2513@srmist.edu.in",
+      "passwordHash": "$2b$10$8zQaJDNTgDclpahB.Jwdyua5Vs5dmLVk5gbrvcGeke0muGJ/j3bvu",
+      "reminderOffsetHours": 24,
+      "createdAt": "2026-09-15T04:36:24.186Z",
+      "updatedAt": "2026-09-29T04:36:24.186Z"
+    }
+  ],
+  "subjects": [],
+  "tasks": [],
+  "taskPriorities": {},
+  "studySessions": [],
+  "notifications": [],
+  "aiRecommendations": []
+}

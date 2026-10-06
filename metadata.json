@@ -1,0 +1,8 @@
+{
+  "name": "Remix Rozecharanvicky Desktop UI",
+  "description": "A professional, full-screen web dashboard layout that replaces mobile-style constraints with a modern, responsive desktop interface.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
