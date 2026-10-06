@@ -45,9 +45,11 @@ export function AnalyticsScreen({
     return <ErrorState message={error} onRetry={fetchAnalytics} />;
   }
 
-  if (!data) return null;
+  if (!data) {
+    return <LoadingState message="Aggregating academic analytics..." />;
+  }
 
-  const maxWeeklyHours = Math.max(...data.weeklyStudyHours, 4);
+  const maxWeeklyHours = Math.max(...(data.weeklyStudyHours || [4]), 4);
 
   return (
     <div className="space-y-6 pb-12">

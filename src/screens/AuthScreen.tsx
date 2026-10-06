@@ -44,6 +44,19 @@ export function AuthScreen({
     return () => clearTimeout(timer);
   }, []);
 
+  const handleQuickDemoLogin = async () => {
+    setError(null);
+    setLoading(true);
+    try {
+      const res = await api.auth.login('vs2513@srmist.edu.in', 'student123');
+      onAuthSuccess(res.user);
+    } catch (err: any) {
+      setError(err.message || 'Demo login failed.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
@@ -185,15 +198,26 @@ export function AuthScreen({
               </p>
             </div>
 
-            {/* Demo Credential Banner */}
-            <div className="p-3.5 mb-5 rounded-xl bg-indigo-50/80 dark:bg-indigo-950/40 border border-indigo-100 dark:border-indigo-900 text-xs text-indigo-900 dark:text-indigo-200 flex items-start gap-2.5">
-              <Sparkles className="w-4 h-4 text-indigo-600 dark:text-indigo-400 shrink-0 mt-0.5" />
-              <div>
-                <span className="font-semibold block">Academic Demo Account</span>
-                <span className="text-[11px] text-indigo-700 dark:text-indigo-300">
-                  Email: <code className="bg-white/80 dark:bg-slate-900 px-1.5 py-0.5 rounded font-mono">vs2513@srmist.edu.in</code> · Password: <code className="bg-white/80 dark:bg-slate-900 px-1.5 py-0.5 rounded font-mono">student123</code>
-                </span>
+            {/* Demo Credential Banner with 1-Click Login */}
+            <div className="p-3.5 mb-5 rounded-xl bg-indigo-50/80 dark:bg-indigo-950/40 border border-indigo-100 dark:border-indigo-900 text-xs text-indigo-900 dark:text-indigo-200 flex flex-col gap-2.5">
+              <div className="flex items-start gap-2.5">
+                <Sparkles className="w-4 h-4 text-indigo-600 dark:text-indigo-400 shrink-0 mt-0.5" />
+                <div className="flex-1">
+                  <span className="font-semibold block">Academic Demo Account</span>
+                  <span className="text-[11px] text-indigo-700 dark:text-indigo-300">
+                    Email: <code className="bg-white/80 dark:bg-slate-900 px-1.5 py-0.5 rounded font-mono">vs2513@srmist.edu.in</code> · Password: <code className="bg-white/80 dark:bg-slate-900 px-1.5 py-0.5 rounded font-mono">student123</code>
+                  </span>
+                </div>
               </div>
+              <button
+                type="button"
+                onClick={handleQuickDemoLogin}
+                disabled={loading}
+                className="w-full py-2 px-3 rounded-lg bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 text-white font-semibold text-xs flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-xs disabled:opacity-60"
+              >
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>1-Click Demo Sign In</span>
+              </button>
             </div>
 
             {error && (

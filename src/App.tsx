@@ -34,7 +34,9 @@ export default function App() {
 
   // Auth state
   const [user, setUser] = useState<User | null>(storage.getUser());
-  const [checkingAuth, setCheckingAuth] = useState<boolean>(true);
+  const [checkingAuth, setCheckingAuth] = useState<boolean>(() => {
+    return Boolean(storage.getToken() || storage.getUser());
+  });
 
   // Active navigation tab (unified across all primary & secondary sections)
   const [currentTab, setCurrentTab] = useState<TabType>('home');
@@ -186,8 +188,27 @@ export default function App() {
     setCurrentTab('ai');
   };
 
+  // While checking student session
+  if (checkingAuth) {
+    return (
+      <div className={`min-h-screen w-full flex flex-col items-center justify-center p-8 select-none transition-colors ${isDark ? 'dark bg-slate-950 text-white' : 'bg-slate-50 text-slate-900'}`}>
+        <div className="relative mb-6">
+          <div className="w-16 h-16 rounded-2xl bg-indigo-600/20 border border-indigo-400/30 flex items-center justify-center shadow-lg backdrop-blur-md">
+            <div className="w-10 h-10 rounded-xl bg-indigo-600 text-white flex items-center justify-center font-extrabold text-xl shadow-md">
+              DG
+            </div>
+          </div>
+        </div>
+        <div className="flex items-center gap-2.5 text-xs font-mono text-indigo-500">
+          <div className="w-4 h-4 border-2 border-indigo-500 border-t-transparent rounded-full animate-spin" />
+          <span>Verifying student session...</span>
+        </div>
+      </div>
+    );
+  }
+
   // If not authenticated, show full-screen web AuthScreen
-  if (!user && !checkingAuth) {
+  if (!user) {
     return (
       <div className={`w-full min-h-screen ${isDark ? 'dark bg-slate-950 text-white' : 'bg-slate-50 text-slate-900'} flex flex-col transition-colors`}>
         <AuthScreen onAuthSuccess={handleAuthSuccess} isDark={isDark} onToggleDark={() => setIsDark(!isDark)} />

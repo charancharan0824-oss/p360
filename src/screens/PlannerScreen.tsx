@@ -56,11 +56,13 @@ export function PlannerScreen({
     return <ErrorState message={error} onRetry={onRefresh} />;
   }
 
-  if (!plannerData) return null;
+  if (!plannerData) {
+    return <LoadingState message="Organizing your study planner..." />;
+  }
 
   const currentTasks = 
-    activeTab === 'today' ? plannerData.today :
-    activeTab === 'tomorrow' ? plannerData.tomorrow : plannerData.thisWeek;
+    activeTab === 'today' ? (plannerData.today || []) :
+    activeTab === 'tomorrow' ? (plannerData.tomorrow || []) : (plannerData.thisWeek || []);
 
   return (
     <div className="space-y-6 pb-12">

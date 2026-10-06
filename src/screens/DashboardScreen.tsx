@@ -52,7 +52,9 @@ export function DashboardScreen({
     return <ErrorState message={error} onRetry={onRefresh} />;
   }
 
-  if (!data) return null;
+  if (!data) {
+    return <LoadingState message="Loading your deadline matrix..." />;
+  }
 
   // Determine dynamic time-based greeting
   const hour = new Date().getHours();
@@ -60,7 +62,7 @@ export function DashboardScreen({
   if (hour >= 12 && hour < 17) timeGreeting = 'Good afternoon';
   else if (hour >= 17) timeGreeting = 'Good evening';
 
-  const userFirstName = data.user.name.split(' ')[0] || 'Student';
+  const userFirstName = data.user?.name ? data.user.name.split(' ')[0] : 'Student';
 
   return (
     <div className="space-y-6 pb-12">
